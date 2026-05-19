@@ -131,15 +131,15 @@ After seeding the database, use these credentials:
 
 ```
 📧 Email: admin@alnour.edu
-🔒 Password: 123456
+🔒 Password: Admin@123
 👤 Role: Administrator
 
 📧 Email: teacher@alnour.edu
-🔒 Password: 123456
+🔒 Password: Teacher@123
 👤 Role: Teacher
 
 📧 Email: parent@alnour.edu
-🔒 Password: 123456
+🔒 Password: Parent@123
 👤 Role: Parent
 ```
 
