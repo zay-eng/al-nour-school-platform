@@ -1,0 +1,252 @@
+# Al-Nour School Management Platform - .gitignore
+
+# ===================================
+# FRONTEND (React + Vite)
+# ===================================
+
+# Dependencies
+al-nour-frontend/node_modules/
+al-nour-frontend/package-lock.json
+
+# Build outputs
+al-nour-frontend/dist/
+al-nour-frontend/build/
+
+# Environment variables
+al-nour-frontend/.env
+al-nour-frontend/.env.local
+al-nour-frontend/.env.production
+al-nour-frontend/.env.development
+
+# Logs
+al-nour-frontend/npm-debug.log*
+al-nour-frontend/yarn-debug.log*
+al-nour-frontend/yarn-error.log*
+al-nour-frontend/pnpm-debug.log*
+al-nour-frontend/lerna-debug.log*
+
+# Editor directories and files
+al-nour-frontend/.vscode/*
+!al-nour-frontend/.vscode/extensions.json
+al-nour-frontend/.idea
+al-nour-frontend/.DS_Store
+al-nour-frontend/*.suo
+al-nour-frontend/*.ntvs*
+al-nour-frontend/*.njsproj
+al-nour-frontend/*.sln
+al-nour-frontend/*.sw?
+
+# ===================================
+# BACKEND (Laravel PHP)
+# ===================================
+
+# Dependencies
+backend-files/vendor/
+backend-files/node_modules/
+
+# Environment variables
+backend-files/.env
+backend-files/.env.backup
+backend-files/.env.production
+
+# Laravel specific
+backend-files/storage/*.key
+backend-files/storage/framework/cache/*
+backend-files/storage/framework/sessions/*
+backend-files/storage/framework/testing/*
+backend-files/storage/framework/views/*
+backend-files/storage/logs/*
+backend-files/bootstrap/cache/*
+backend-files/public/storage
+backend-files/public/hot
+
+# IDE
+backend-files/.idea/
+backend-files/.vscode/
+backend-files/*.swp
+backend-files/*.swo
+backend-files/*~
+backend-files/.DS_Store
+
+# Composer
+backend-files/composer.lock
+backend-files/composer.phar
+
+# PHPUnit
+backend-files/.phpunit.result.cache
+backend-files/phpunit.xml
+
+# Laravel Mix
+backend-files/public/css/
+backend-files/public/js/
+backend-files/public/mix-manifest.json
+
+# NPM
+backend-files/package-lock.json
+backend-files/yarn.lock
+
+# ===================================
+# GENERAL
+# ===================================
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# Kiro AI - Remove AI traces
+.kiro/
+
+# Backup files
+*.backup
+*.jsx.backup
+*.php.backup
+
+# Documentation drafts (keep published docs)
+CLEANUP_PLAN.md
+
+# AI-generated documentation (exclude from repo)
+CLEANUP_COMPLETE.md
+CONTRIBUTING.md
+CURRENCY_CHANGE_COMPLETE.md
+DATABASE_QUICK_START.md
+DIAGRAMMES_UML.md
+FINAL_SUMMARY.md
+FRONTEND_BACKEND_ALIGNMENT.md
+GITHUB_SETUP_INSTRUCTIONS.md
+HOW_TO_RUN.md
+LATEST_UPDATES.md
+PLAN_ACTION_IMMEDIAT.md
+PUSH_TO_GITHUB.md
+QUICK_START.md
+README_START_HERE.md
+SETUP_COMPLETE.md
+SIDEBAR_FIX_COMPLETE.md
+STRUCTURE_PROJET_COMPLETE.md
+
+# Frontend AI docs
+al-nour-frontend/FEATURES_STATUS.md
+al-nour-frontend/QUICK_START.md
+al-nour-frontend/SUMMARY.md
+
+# Scripts
+cleanup.ps1
+cleanup.sh
+start-dev.ps1
+start-dev.sh
+
+# Folders to exclude
+backend-files/
+docs/
+rapport-stage-latex/
+
+# Empty folders
+Nouveau dossier/
+
+# ===================================
+# SECURITY - NEVER COMMIT THESE!
+# ===================================
+
+# API Keys & Secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Database
+*.sql
+*.sqlite
+*.db
+
+# Credentials
+credentials.json
+secrets.json
+config/secrets.php
+
+# ===================================
+# BUILD & DEPLOYMENT
+# ===================================
+
+# Build artifacts
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Deployment
+.vercel
+.netlify
+.firebase/
+
+# ===================================
+# TESTING
+# ===================================
+
+# Coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Test results
+test-results/
+junit.xml
+
+# ===================================
+# DEPENDENCIES
+# ===================================
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# PHP
+vendor/
+composer.lock
+
+# ===================================
+# MISC
+# ===================================
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Large files
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.iso

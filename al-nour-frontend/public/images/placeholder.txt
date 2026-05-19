@@ -1,0 +1,20 @@
+# Image Placeholders
+
+يرجى إضافة الصور التالية في هذا المجلد:
+
+## الصور المطلوبة:
+
+1. **school-building.jpg** - صورة مبنى المدرسة
+2. **administrator.jpg** - صورة تمثل المدير
+3. **teacher.jpg** - صورة تمثل الأستاذ
+4. **parent.jpg** - صورة تمثل ولي الأمر
+5. **student-avatar.jpg** - صورة افتراضية للطالب
+
+## مصادر الصور المجانية:
+
+- Unsplash: https://unsplash.com
+- Pexels: https://pexels.com
+- Pixabay: https://pixabay.com
+
+## ملاحظة:
+يمكنك استخدام أي صور مناسبة أو استبدال مسارات الصور في الكود بصور من الإنترنت مؤقتاً.
