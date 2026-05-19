@@ -48,57 +48,131 @@ A comprehensive, secure, and modern school management system built with React an
 
 ### Prerequisites
 
-- **Frontend:** Node.js 18+ and npm
-- **Backend:** PHP 8.2+, Composer, MySQL/MariaDB
-- **Server:** XAMPP (recommended for local development)
+- **Node.js** 18+ and npm (for frontend)
+- **PHP** 8.2+ (for backend)
+- **Composer** (PHP package manager)
+- **MySQL/PostgreSQL** (database)
+- **XAMPP** (recommended for local development on Windows)
 
 ### Installation
 
-#### 1. Clone the Repository
+#### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/al-nour-school-platform.git
+git clone https://github.com/zay-eng/al-nour-school-platform.git
 cd al-nour-school-platform
 ```
 
-#### 2. Frontend Setup
+#### 2️⃣ Backend Setup (Laravel)
 ```bash
-cd al-nour-frontend
-npm install
-cp .env.example .env
-npm run dev
-```
+# Navigate to backend folder
+cd al-nour-backend
 
-Frontend will run on: `http://localhost:5173`
-
-#### 3. Backend Setup
-```bash
-cd backend-files
+# Install PHP dependencies
 composer install
+
+# Copy environment file
 cp .env.example .env
+
+# Generate application key
 php artisan key:generate
+
+# Configure your database in .env file
+# Edit DB_CONNECTION, DB_DATABASE, DB_USERNAME, DB_PASSWORD
+
+# Run migrations and seed database
 php artisan migrate --seed
+
+# Start backend server
 php artisan serve
 ```
 
-Backend will run on: `http://localhost:8000`
+Backend will run on: **http://localhost:8000**
 
-### Default Login Credentials
+#### 3️⃣ Frontend Setup (React)
+```bash
+# Open a new terminal and navigate to frontend folder
+cd al-nour-frontend
+
+# Install Node dependencies
+npm install
+
+# Create environment file (if needed)
+# Make sure VITE_API_URL points to http://localhost:8000
+
+# Start frontend development server
+npm run dev
+```
+
+Frontend will run on: **http://localhost:5173**
+
+### 🎯 One-Command Setup (After Clone)
+
+**For Windows (PowerShell):**
+```powershell
+# Backend
+cd al-nour-backend ; composer install ; cp .env.example .env ; php artisan key:generate ; php artisan migrate --seed ; php artisan serve
+
+# Frontend (in new terminal)
+cd al-nour-frontend ; npm install ; npm run dev
+```
+
+**For Linux/Mac:**
+```bash
+# Backend
+cd al-nour-backend && composer install && cp .env.example .env && php artisan key:generate && php artisan migrate --seed && php artisan serve
+
+# Frontend (in new terminal)
+cd al-nour-frontend && npm install && npm run dev
+```
+
+### 🔑 Default Login Credentials
+
+After seeding the database, use these credentials:
 
 ```
-Email: admin@alnour.edu
-Password: 123456
-Role: Administrator
+📧 Email: admin@alnour.edu
+🔒 Password: 123456
+👤 Role: Administrator
 
-Email: teacher@alnour.edu
-Password: 123456
-Role: Teacher
+📧 Email: teacher@alnour.edu
+🔒 Password: 123456
+👤 Role: Teacher
 
-Email: parent@alnour.edu
-Password: 123456
-Role: Parent
+📧 Email: parent@alnour.edu
+🔒 Password: 123456
+👤 Role: Parent
 ```
 
-**⚠️ Change these passwords immediately in production!**
+**⚠️ IMPORTANT: Change these passwords immediately in production!**
+
+### ⚙️ Database Configuration
+
+Edit `al-nour-backend/.env` file:
+
+**For MySQL (XAMPP):**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=al_nour_school
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**For PostgreSQL:**
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=al_nour_school
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+```
+
+Don't forget to create the database first:
+```sql
+CREATE DATABASE al_nour_school;
+```
 
 ## 📁 Project Structure
 
