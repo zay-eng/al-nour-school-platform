@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GraduationCap, Users, BookOpen, UserCheck, Award, TrendingUp, Shield, CheckCircle, Star, Heart, Zap, Target } from 'lucide-react';
+import { GraduationCap, Users, BookOpen, UserCheck, Award, TrendingUp, Shield, CheckCircle, Star, Heart, Zap, Target, Languages } from 'lucide-react';
 
 // Import images from assets
 import studentsImg from '../assets/students.jpg';
@@ -12,6 +12,7 @@ import parentsImg from '../assets/parents.jpg';
 const HomePage = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [language, setLanguage] = useState('ar'); // 'ar' or 'fr'
 
   // Array of background images that will rotate
   const backgroundImages = [
@@ -21,37 +22,77 @@ const HomePage = () => {
     parentsImg
   ];
 
-  // Static content that stays the same
-  const mainContent = {
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    title: 'مدرسة النور الخاصة',
-    subtitle: 'التميز في التعليم والإبداع في المستقبل',
-    description: 'منصة رقمية متكاملة لإدارة المدرسة'
+  // Content in both languages
+  const content = {
+    ar: {
+      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      schoolName: 'مدرسة النور الخاصة',
+      schoolNameSub: 'École Privée Al-Nour',
+      title: 'مدرسة النور الخاصة',
+      subtitle: 'التميز في التعليم والإبداع في المستقبل',
+      description: 'منصة رقمية متكاملة لإدارة المدرسة',
+      chooseRole: 'اختر دورك للدخول إلى المنصة',
+      adminBtn: 'دخول المدير',
+      teacherBtn: 'دخول الأستاذ',
+      parentBtn: 'دخول ولي الأمر',
+      statistics: 'إحصائيات المدرسة',
+      statisticsDesc: 'أرقام تعكس تميزنا ونجاحنا',
+      aboutPlatform: 'عن منصة النور',
+      aboutDesc: 'منصة رقمية متكاملة تربط بين الإدارة والمعلمين وأولياء الأمور لتوفير بيئة تعليمية متميزة',
+      certified: 'معتمدون ومعترف بنا',
+      certifiedDesc: 'مدرسة معتمدة من وزارة التربية الوطنية وحاصلة على شهادات الجودة التعليمية',
+      quickLinks: 'روابط سريعة',
+      contact: 'تواصل معنا',
+      rights: 'جميع الحقوق محفوظة'
+    },
+    fr: {
+      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      schoolName: 'École Privée Al-Nour',
+      schoolNameSub: 'مدرسة النور الخاصة',
+      title: 'École Privée Al-Nour',
+      subtitle: 'Excellence en éducation et créativité pour l\'avenir',
+      description: 'Plateforme numérique intégrée pour la gestion scolaire',
+      chooseRole: 'Choisissez votre rôle pour accéder à la plateforme',
+      adminBtn: 'Connexion Administrateur',
+      teacherBtn: 'Connexion Enseignant',
+      parentBtn: 'Connexion Parent',
+      statistics: 'Statistiques de l\'école',
+      statisticsDesc: 'Des chiffres qui reflètent notre excellence',
+      aboutPlatform: 'À propos de la plateforme Al-Nour',
+      aboutDesc: 'Une plateforme numérique intégrée qui relie l\'administration, les enseignants et les parents pour offrir un environnement éducatif d\'excellence',
+      certified: 'Certifiée et reconnue',
+      certifiedDesc: 'École certifiée par le Ministère de l\'Éducation Nationale et titulaire de certificats de qualité éducative',
+      quickLinks: 'Liens rapides',
+      contact: 'Contactez-nous',
+      rights: 'Tous droits réservés'
+    }
   };
+
+  const mainContent = content[language];
 
   const statistics = [
     {
       icon: <Users className="w-12 h-12" />,
       number: '342+',
-      label: 'طالب وطالبة',
+      label: language === 'ar' ? 'طالب وطالبة' : 'Élèves',
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: <GraduationCap className="w-12 h-12" />,
       number: '45+',
-      label: 'معلم ومعلمة',
+      label: language === 'ar' ? 'معلم ومعلمة' : 'Enseignants',
       color: 'from-green-500 to-green-600'
     },
     {
       icon: <Award className="w-12 h-12" />,
       number: '%94',
-      label: 'نسبة النجاح',
+      label: language === 'ar' ? 'نسبة النجاح' : 'Taux de réussite',
       color: 'from-purple-500 to-purple-600'
     },
     {
       icon: <Heart className="w-12 h-12" />,
       number: '%87',
-      label: 'رضا أولياء الأمور',
+      label: language === 'ar' ? 'رضا أولياء الأمور' : 'Satisfaction des parents',
       color: 'from-red-500 to-red-600'
     }
   ];
@@ -59,33 +100,33 @@ const HomePage = () => {
   const features = [
     {
       icon: <Shield className="w-8 h-8" />,
-      title: 'أمان وخصوصية',
-      description: 'حماية كاملة لبيانات الطلاب والمعلمين'
+      title: language === 'ar' ? 'أمان وخصوصية' : 'Sécurité et confidentialité',
+      description: language === 'ar' ? 'حماية كاملة لبيانات الطلاب والمعلمين' : 'Protection complète des données des élèves et enseignants'
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
-      title: 'متابعة الأداء',
-      description: 'تقارير تفصيلية عن تقدم الطلاب الأكاديمي'
+      title: language === 'ar' ? 'متابعة الأداء' : 'Suivi des performances',
+      description: language === 'ar' ? 'تقارير تفصيلية عن تقدم الطلاب الأكاديمي' : 'Rapports détaillés sur les progrès académiques des élèves'
     },
     {
       icon: <CheckCircle className="w-8 h-8" />,
-      title: 'سهولة الاستخدام',
-      description: 'واجهة بسيطة وسهلة لجميع المستخدمين'
+      title: language === 'ar' ? 'سهولة الاستخدام' : 'Facilité d\'utilisation',
+      description: language === 'ar' ? 'واجهة بسيطة وسهلة لجميع المستخدمين' : 'Interface simple et facile pour tous les utilisateurs'
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: 'سرعة وكفاءة',
-      description: 'نظام سريع ومستقر لإدارة العمليات اليومية'
+      title: language === 'ar' ? 'سرعة وكفاءة' : 'Rapidité et efficacité',
+      description: language === 'ar' ? 'نظام سريع ومستقر لإدارة العمليات اليومية' : 'Système rapide et stable pour gérer les opérations quotidiennes'
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: 'تواصل فعال',
-      description: 'نظام رسائل وإشعارات فوري بين جميع الأطراف'
+      title: language === 'ar' ? 'تواصل فعال' : 'Communication efficace',
+      description: language === 'ar' ? 'نظام رسائل وإشعارات فوري بين جميع الأطراف' : 'Système de messagerie et notifications instantanées entre toutes les parties'
     },
     {
       icon: <Star className="w-8 h-8" />,
-      title: 'جودة التعليم',
-      description: 'أدوات متقدمة لتحسين جودة التعليم'
+      title: language === 'ar' ? 'جودة التعليم' : 'Qualité de l\'enseignement',
+      description: language === 'ar' ? 'أدوات متقدمة لتحسين جودة التعليم' : 'Outils avancés pour améliorer la qualité de l\'enseignement'
     }
   ];
 
@@ -108,9 +149,37 @@ const HomePage = () => {
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
               <BookOpen className="w-10 h-10 text-blue-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">مدرسة النور الخاصة</h1>
-                <p className="text-sm text-gray-600">École Privée Al-Nour</p>
+                <h1 className="text-2xl font-bold text-gray-800">{mainContent.schoolName}</h1>
+                <p className="text-sm text-gray-600">{mainContent.schoolNameSub}</p>
               </div>
+            </div>
+            
+            {/* Language Switcher */}
+            <div className="flex items-center gap-2 bg-gray-100 rounded-full p-1">
+              <button
+                onClick={() => setLanguage('ar')}
+                className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                  language === 'ar'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  العربية
+                </span>
+              </button>
+              <button
+                onClick={() => setLanguage('fr')}
+                className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                  language === 'fr'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  Français
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -172,7 +241,7 @@ const HomePage = () => {
 
                 <div className="space-y-4">
                   <p className="text-lg text-blue-100 mb-8">
-                    اختر دورك للدخول إلى المنصة
+                    {mainContent.chooseRole}
                   </p>
                   <div className="flex flex-col md:flex-row gap-4 justify-center">
                     <motion.button
@@ -181,7 +250,7 @@ const HomePage = () => {
                       className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
                     >
                       <UserCheck className="w-5 h-5 inline-block ml-2" />
-                      دخول المدير
+                      {mainContent.adminBtn}
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
@@ -189,7 +258,7 @@ const HomePage = () => {
                       className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all"
                     >
                       <GraduationCap className="w-5 h-5 inline-block ml-2" />
-                      دخول الأستاذ
+                      {mainContent.teacherBtn}
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
@@ -197,7 +266,7 @@ const HomePage = () => {
                       className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all"
                     >
                       <Users className="w-5 h-5 inline-block ml-2" />
-                      دخول ولي الأمر
+                      {mainContent.parentBtn}
                     </motion.button>
                   </div>
                 </div>
@@ -232,10 +301,10 @@ const HomePage = () => {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                إحصائيات المدرسة
+                {mainContent.statistics}
               </h2>
               <p className="text-xl text-gray-600">
-                أرقام تعكس تميزنا ونجاحنا
+                {mainContent.statisticsDesc}
               </p>
             </motion.div>
 
@@ -276,10 +345,10 @@ const HomePage = () => {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                عن منصة النور
+                {mainContent.aboutPlatform}
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                منصة رقمية متكاملة تربط بين الإدارة والمعلمين وأولياء الأمور لتوفير بيئة تعليمية متميزة
+                {mainContent.aboutDesc}
               </p>
             </motion.div>
 
@@ -325,20 +394,26 @@ const HomePage = () => {
                 </div>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                معتمدون ومعترف بنا
+                {mainContent.certified}
               </h2>
               <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
-                مدرسة معتمدة من وزارة التربية الوطنية وحاصلة على شهادات الجودة التعليمية
+                {mainContent.certifiedDesc}
               </p>
               <div className="flex flex-wrap justify-center gap-6">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3">
-                  <p className="font-semibold">معتمد من وزارة التربية</p>
+                  <p className="font-semibold">
+                    {language === 'ar' ? 'معتمد من وزارة التربية' : 'Certifié par le Ministère'}
+                  </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3">
-                  <p className="font-semibold">شهادة الجودة ISO 9001</p>
+                  <p className="font-semibold">
+                    {language === 'ar' ? 'شهادة الجودة ISO 9001' : 'Certification ISO 9001'}
+                  </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3">
-                  <p className="font-semibold">عضو اتحاد المدارس الخاصة</p>
+                  <p className="font-semibold">
+                    {language === 'ar' ? 'عضو اتحاد المدارس الخاصة' : 'Membre de l\'union des écoles privées'}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -354,30 +429,30 @@ const HomePage = () => {
             <div>
               <div className="flex items-center mb-4">
                 <BookOpen className="w-8 h-8 text-blue-400 ml-3" />
-                <h3 className="text-xl font-semibold">مدرسة النور الخاصة</h3>
+                <h3 className="text-xl font-semibold">{mainContent.schoolName}</h3>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                منصة رقمية متكاملة لإدارة المدرسة تربط بين الإدارة والمعلمين وأولياء الأمور
+                {mainContent.description}
               </p>
             </div>
 
             {/* Quick Links Column */}
             <div>
-              <h3 className="text-xl font-semibold mb-4">روابط سريعة</h3>
+              <h3 className="text-xl font-semibold mb-4">{mainContent.quickLinks}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <button onClick={() => handleRoleLogin('admin')} className="hover:text-blue-400 transition-colors">
-                    دخول المدير
+                    {mainContent.adminBtn}
                   </button>
                 </li>
                 <li>
                   <button onClick={() => handleRoleLogin('teacher')} className="hover:text-blue-400 transition-colors">
-                    دخول الأستاذ
+                    {mainContent.teacherBtn}
                   </button>
                 </li>
                 <li>
                   <button onClick={() => handleRoleLogin('parent')} className="hover:text-blue-400 transition-colors">
-                    دخول ولي الأمر
+                    {mainContent.parentBtn}
                   </button>
                 </li>
               </ul>
@@ -385,7 +460,7 @@ const HomePage = () => {
 
             {/* Contact Column */}
             <div>
-              <h3 className="text-xl font-semibold mb-4">تواصل معنا</h3>
+              <h3 className="text-xl font-semibold mb-4">{mainContent.contact}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>📧 info@alnour.edu</li>
                 <li>📞 +212 5XX-XXXXXX</li>
@@ -395,7 +470,7 @@ const HomePage = () => {
           </div>
 
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 مدرسة النور الخاصة. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2024 {mainContent.schoolName}. {mainContent.rights}.</p>
           </div>
         </div>
       </footer>
