@@ -11,52 +11,23 @@ import parentsImg from '../assets/parents.jpg';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const slides = [
-    {
-      id: 1,
-      image: studentsImg,
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      title: 'مدرسة النور الخاصة',
-      subtitle: 'التميز في التعليم والإبداع في المستقبل',
-      description: 'منصة رقمية متكاملة لإدارة المدرسة',
-      isMainSlide: true
-    },
-    {
-      id: 2,
-      image: administrateurImg,
-      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-      title: 'لوحة تحكم المدير',
-      subtitle: 'إدارة شاملة للمدرسة',
-      description: 'متابعة الأداء والإحصائيات والمدفوعات',
-      role: 'admin',
-      icon: <UserCheck className="w-8 h-8" />,
-      buttonText: 'تسجيل دخول كمدير'
-    },
-    {
-      id: 3,
-      image: teacherImg,
-      gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-      title: 'منصة الأستاذ',
-      subtitle: 'متابعة التلاميذ والدروس',
-      description: 'إدارة الدرجات والحضور والموارد التعليمية',
-      role: 'teacher',
-      icon: <GraduationCap className="w-8 h-8" />,
-      buttonText: 'تسجيل دخول كأستاذ'
-    },
-    {
-      id: 4,
-      image: parentsImg,
-      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-      title: 'بوابة ولي الأمر',
-      subtitle: 'متابعة تقدم الطفل',
-      description: 'مراقبة الأداء الأكاديمي والمالي والتواصل',
-      role: 'parent',
-      icon: <Users className="w-8 h-8" />,
-      buttonText: 'تسجيل دخول كولي أمر'
-    }
+  // Array of background images that will rotate
+  const backgroundImages = [
+    studentsImg,
+    administrateurImg,
+    teacherImg,
+    parentsImg
   ];
+
+  // Static content that stays the same
+  const mainContent = {
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    title: 'مدرسة النور الخاصة',
+    subtitle: 'التميز في التعليم والإبداع في المستقبل',
+    description: 'منصة رقمية متكاملة لإدارة المدرسة'
+  };
 
   const statistics = [
     {
@@ -120,16 +91,14 @@ const HomePage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [backgroundImages.length]);
 
   const handleRoleLogin = (role) => {
     navigate(`/login/${role}`);
   };
-
-  const currentSlideData = slides[currentSlide];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
@@ -148,27 +117,28 @@ const HomePage = () => {
       </header>
 
       <main className="relative">
-        {/* Hero Carousel Section */}
+        {/* Hero Section with Rotating Background Images */}
         <div className="relative h-screen overflow-hidden">
+          {/* Rotating Background Images */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentSlide}
+              key={currentImageIndex}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.2 }}
               className="absolute inset-0"
             >
               {/* Background gradient */}
               <div 
                 className="absolute inset-0"
-                style={{ background: currentSlideData.gradient }}
+                style={{ background: mainContent.gradient }}
               />
               
               {/* Background image */}
               <img 
-                src={currentSlideData.image}
-                alt={currentSlideData.title}
+                src={backgroundImages[currentImageIndex]}
+                alt="مدرسة النور"
                 className="absolute inset-0 w-full h-full object-cover"
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -177,91 +147,73 @@ const HomePage = () => {
               
               {/* Dark overlay */}
               <div className="absolute inset-0 bg-black/50" />
-              
-              <div className="relative z-10 flex items-center justify-center h-full">
-                <div className="text-center text-white px-6 max-w-4xl">
-                  <motion.div
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    {currentSlideData.icon && (
-                      <div className="flex justify-center mb-6">
-                        <div className="p-4 bg-white/20 backdrop-blur-sm rounded-full">
-                          {currentSlideData.icon}
-                        </div>
-                      </div>
-                    )}
-                    
-                    <h2 className="text-5xl md:text-6xl font-bold mb-4">
-                      {currentSlideData.title}
-                    </h2>
-                    
-                    <p className="text-xl md:text-2xl mb-6 text-blue-100">
-                      {currentSlideData.subtitle}
-                    </p>
-                    
-                    <p className="text-lg mb-8 text-gray-200">
-                      {currentSlideData.description}
-                    </p>
-
-                    {currentSlideData.role && (
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        onClick={() => handleRoleLogin(currentSlideData.role)}
-                        className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-blue-500/50 transition-all"
-                      >
-                        {currentSlideData.buttonText}
-                      </motion.button>
-                    )}
-
-                    {currentSlideData.isMainSlide && (
-                      <div className="space-y-4">
-                        <p className="text-lg text-blue-100 mb-8">
-                          اختر دورك للدخول إلى المنصة
-                        </p>
-                        <div className="flex flex-col md:flex-row gap-4 justify-center">
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            onClick={() => handleRoleLogin('admin')}
-                            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
-                          >
-                            <UserCheck className="w-5 h-5 inline-block ml-2" />
-                            دخول المدير
-                          </motion.button>
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            onClick={() => handleRoleLogin('teacher')}
-                            className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all"
-                          >
-                            <GraduationCap className="w-5 h-5 inline-block ml-2" />
-                            دخول الأستاذ
-                          </motion.button>
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            onClick={() => handleRoleLogin('parent')}
-                            className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all"
-                          >
-                            <Users className="w-5 h-5 inline-block ml-2" />
-                            دخول ولي الأمر
-                          </motion.button>
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
-                </div>
-              </div>
             </motion.div>
           </AnimatePresence>
 
+          {/* Static Content */}
+          <div className="relative z-10 flex items-center justify-center h-full">
+            <div className="text-center text-white px-6 max-w-4xl">
+              <motion.div
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <h2 className="text-5xl md:text-6xl font-bold mb-4">
+                  {mainContent.title}
+                </h2>
+                
+                <p className="text-xl md:text-2xl mb-6 text-blue-100">
+                  {mainContent.subtitle}
+                </p>
+                
+                <p className="text-lg mb-8 text-gray-200">
+                  {mainContent.description}
+                </p>
+
+                <div className="space-y-4">
+                  <p className="text-lg text-blue-100 mb-8">
+                    اختر دورك للدخول إلى المنصة
+                  </p>
+                  <div className="flex flex-col md:flex-row gap-4 justify-center">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => handleRoleLogin('admin')}
+                      className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+                    >
+                      <UserCheck className="w-5 h-5 inline-block ml-2" />
+                      دخول المدير
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => handleRoleLogin('teacher')}
+                      className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all"
+                    >
+                      <GraduationCap className="w-5 h-5 inline-block ml-2" />
+                      دخول الأستاذ
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => handleRoleLogin('parent')}
+                      className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all"
+                    >
+                      <Users className="w-5 h-5 inline-block ml-2" />
+                      دخول ولي الأمر
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Image Indicators */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
             <div className="flex space-x-3">
-              {slides.map((_, index) => (
+              {backgroundImages.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
+                  onClick={() => setCurrentImageIndex(index)}
                   className={`h-3 rounded-full transition-all ${
-                    index === currentSlide ? 'bg-white w-8' : 'bg-white/50 w-3'
+                    index === currentImageIndex ? 'bg-white w-8' : 'bg-white/50 w-3'
                   }`}
                 />
               ))}
